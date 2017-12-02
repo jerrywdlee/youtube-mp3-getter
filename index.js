@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000
 const app = new Koa()
 const router = new Router()
 
-const getMp3Urls = require('./puppeteers/p_01')
+const getMp3Urls = require('./puppeteers/p_02')
 
 app
   .use(logger)
@@ -22,7 +22,12 @@ app
 router.get('/api', async (ctx, next) => {
   let videoUrl = ctx.query['video_url']
   let mp3Urls = await getMp3Urls(videoUrl)
-  ctx.body = `URL: \n${mp3Urls.join('\n')}`
+  // ctx.body = `URL: \n${mp3Urls.join('\n')}`
+  if (mp3Urls && mp3Urls[0]) {
+    ctx.redirect(mp3Urls[0])
+  } else {
+    ctx.status = 404
+  }
 })
 
 // logger

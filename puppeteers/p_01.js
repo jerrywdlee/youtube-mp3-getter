@@ -16,19 +16,28 @@ let getMp3Urls = async (youtubeUrl) => {
     videoId = subId_2 ? subId_2 : subId_1 
   }
   let converterUrl = 'https://www.yt-download.org/@api/button/mp3/' + videoId.trim()
-  if (!videoId) throw Error('invaid-url')
+  // if (!videoId) throw Error('invaid-url')
+  if (!videoId) return null
 
   // use puppeteer
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+  // const browser = await puppeteer.launch({ headless: false }); // default is true
   const page = await browser.newPage()
   await page.goto(converterUrl)
   // await page.screenshot({ path: 'Y3GrHLOgF3c.png' })
   let mp3Urls = []
-  mp3Urls = await page.evaluate(() => {
-    let links = document.querySelectorAll('a')
-    return [].map.call(links, a => a.href)
-  })
-  await browser.close()
+  // mp3Urls = await page.evaluate(() => {
+    // let links = document.querySelectorAll('a')
+    // return [].map.call(links, a => a.href)
+    // document.querySelector('a')
+  // })
+  
+  const reportLink = await page.$('.link:nth-child(2) a')
+  // console.log(reportLink)
+  await page._client.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: __dirname });
+  await reportLink.click({ clickCount: 1, delay: 100 });
+
+  // await browser.close()
   return mp3Urls
 }
 

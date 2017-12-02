@@ -15,3 +15,7 @@ app
   .use(koa_static(path.join(__dirname, 'public')))
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
+router.get('/api', (ctx, next) => {
+  let videoUrl = ctx.query['video_url']
+  ctx.body = `URL: ${videoUrl}`
+})

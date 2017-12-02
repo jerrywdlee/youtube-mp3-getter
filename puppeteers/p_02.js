@@ -12,8 +12,8 @@ let getMp3Urls = async (youtubeUrl) => {
   let converterUrl = `https://www.yt-to-mp3.com/api/mp3.html#${videoId.trim()}`
 
   // use puppeteer
-  // const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
-  const browser = await puppeteer.launch({ headless: false }); // default is true
+  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+  // const browser = await puppeteer.launch({ headless: false }); // default is true
   const page = await browser.newPage()
   await page.goto(converterUrl)
   await page.waitForSelector('a.btn-download-mp3',{ timeout: 60*1000 })

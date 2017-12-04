@@ -19,16 +19,21 @@ app
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 // router
-router.get('/api', async (ctx, next) => {
-  let videoUrl = ctx.query['video_url']
-  let mp3Urls = await getMp3Urls(videoUrl)
-  // ctx.body = `URL: \n${mp3Urls.join('\n')}`
-  if (mp3Urls && mp3Urls[0]) {
-    ctx.redirect(mp3Urls[0])
-  } else {
-    ctx.status = 404
-  }
-})
+router
+  .get('/api/youtube_2_mp3', async (ctx, next) => {
+    let videoUrl = ctx.query['video_url']
+    let mp3Urls = await getMp3Urls(videoUrl)
+    // ctx.body = `URL: \n${mp3Urls.join('\n')}`
+    if (mp3Urls && mp3Urls[0]) {
+      ctx.redirect(mp3Urls[0])
+    } else {
+      ctx.status = 404
+    }
+  })
+  .get('/api/slack', async (ctx, next) => {
+    let videoUrl = ctx.query['video_url']
+
+  })
 
 // logger
 async function logger(ctx, next) {

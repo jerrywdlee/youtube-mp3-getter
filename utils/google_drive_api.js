@@ -166,7 +166,7 @@ const findOrCreateFolder = async (query, auth) => {
 const findFolderInfo = (folderName, parentId = 'root', auth) => {
   const drive = google.drive('v3')
   const mimeType = 'application/vnd.google-apps.folder'
-  const q = `mimeType = '${mimeType}' and name ='${folderName}' and '${parentId}' in parents`
+  const q = `mimeType = '${mimeType}' and name ='${folderName}' and '${parentId}' in parents and trashed = false`
   // console.log(q)
   return new Promise((resolve, reject) => {
     drive.files.list({

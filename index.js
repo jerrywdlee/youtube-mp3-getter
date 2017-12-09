@@ -277,6 +277,18 @@ router
       ctx.body = e.message
     }
   })
+  .get('/refreash_configs', async (ctx, next) => {
+    try {
+      let res = await getConfigs()
+      configs = res
+      slack = new Slack(configs.incoming_url)
+      ifttt = new Ifttt(configs.ifttt_key)
+      ctx.status = 200
+    } catch (e) {
+      ctx.body = e.message
+      console.error(e)
+    }
+  })
   /*
   .get('/api/stream', async (ctx, next) => {
     ctx.body = req('http://66.90.93.122/ost/persona-5-sounds-of-rebellion/dtyqmytq/04%20Life%20Will%20Change.mp3')

@@ -3,7 +3,7 @@
 
 'use strict'
 const puppeteer = require('puppeteer')
-const getVideoId = require('../utils/get_video_id')
+const {getVideoId} = require('../utils/url_helper')
 
 let getMp3Urls = async (youtubeUrl) => {
 
@@ -14,7 +14,7 @@ let getMp3Urls = async (youtubeUrl) => {
 
   // use puppeteer
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
-  // const browser = await puppeteer.launch({ headless: false }); // default is true
+  // const browser = await puppeteer.launch({ headless: false }) // default is true
   const page = await browser.newPage()
   await page.goto(converterUrl)
   await page.waitForSelector('a.btn-download-mp3',{ timeout: 60*1000 })
@@ -29,7 +29,7 @@ let getMp3Urls = async (youtubeUrl) => {
   return mp3Urls
 }
 
-module.exports = getMp3Urls;
+module.exports = getMp3Urls
 
 if (!module.parent) {
   (async () => {

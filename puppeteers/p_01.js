@@ -41,7 +41,7 @@ let getMp3Urls = async (youtubeUrl) => {
   return mp3Urls
 }
 
-module.exports = getMp3Urls;
+module.exports = getMp3Urls
 
 if (!module.parent) {
   (async () => {

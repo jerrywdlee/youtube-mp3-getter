@@ -42,6 +42,7 @@ class GoogleDrive {
     })
     let errorMsg = `Get app Auth Code by visiting this url:\n${authUrl}`
     errorMsg += `\n And submit Auth Code in ${process.env.URL_ORIGIN}/code.html`
+    this.configs = null // refresh needed
     throw Error(errorMsg)
   }
 

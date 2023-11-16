@@ -1,0 +1,8 @@
+@host = localhost:5000
+
+### Get Album
+
+POST {{host}}/api/slack
+Content-Type: application/json
+
+{}

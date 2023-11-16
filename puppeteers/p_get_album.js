@@ -63,12 +63,14 @@ const getSongUrl = async (songUrlBefore, page) => {
 const getAlbum = async (albumUrl, sliceOption) => {
   if (!albumUrl) throw Error('invaild-url')
   let { albumName, songPageUrlList } = await getSongPageUrl(albumUrl)
+  console.log(albumName, songPageUrlList);
   if (!_.isEmpty(sliceOption)) {
     songPageUrlList = _.slice(songPageUrlList, sliceOption[0] - 1, sliceOption[1])
   }
   let songUrlList = []
   for (let url of songPageUrlList) {
     // const songUrl = await getSongUrl(url, page)
+    url = 'https://downloads.khinsider.com' + url
     const songUrl = await getOriginSongUrl(url)
     let songInfo = createSongInfo(songUrl)
     songInfo.albumName = albumName
@@ -83,7 +85,7 @@ module.exports = getAlbum
 
 if (!module.parent) {
   (async () => {
-    let albumUrl = 'https://downloads.khinsider.com/game-soundtracks/album/persona-5-sounds-of-rebellion' 
+    let albumUrl = 'https://downloads.khinsider.com/game-soundtracks/album/phoenix-wright-ace-attorney-ost'
     // Persona 5 - Sounds of Rebellion
     let songUrlList = await getAlbum(albumUrl)
     console.log(songUrlList)
